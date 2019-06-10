@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Registro de músicos en nuestro catálogo.</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <h1 class="header__title">Contratar Músicos</h1>
+    </header>
+    <main id="app">
+        <header>
+            <h3 class="header__inviteQuestion">¿Quieres formar parte del mejor catálogo de músicos en México ?</h3>
+            <h4 class="header__actionText">Déjanos tus datos y en breve te contactarémos</h4>
+        </header>
+        <aside>
+            <form action="" class="musicData__form">
+                <div class="musicData__row">
+                    <div class="musicData__item">
+                        <label for="musicData_label">Nombre</label>
+                        <input class="input__dimensions" type="text" id="musicData_name"
+                            v-model="musicData.name"
+                            placeholder="Nombre de agrupación o solista">
+                    </div>
+                    <div class="musicData__item">
+                        <label for="musicData_telephone">Teléfono</label>
+                        <input class="input__dimensions"
+                         type="tel" id="musicData_telephone"
+                          name="musicData_telephone"
+                          v-model="musicData.phone"
+                            placeholder="XXX-XXX-XXXX" maxlength="10" required>
+
+                    </div>
+                </div>
+                <div class="musicData__row">
+                    <div class="musicData__item">
+                        <label for="musicData_email">Correo electrónico</label>
+                        <input class="input__dimensions" 
+                        v-model="musicData.email"
+                        type="email" id="musicData_email"
+                            placeholder="micorreo@musico.com">
+                    </div>
+
+                    <div class="musicData__item">
+                        <label for="musicData_label">Principal tipo de música que interpreta</label>
+                        <select name="musicData__type" id="musicData__type" class="input__dimensions"
+                            v-model="musicData.type" @change="isOther = musicData.type == 8 ? true : false">
+                            <option value="" selected="selected">---------</option>
+                            <option value="1">Banda</option>
+                            <option value="2">Cumbia</option>
+                            <option value="3">Salsa</option>
+                            <option value="4">Norteña</option>
+                            <option value="5">Rock</option>
+                            <option value="6">Solista</option>
+                            <option value="7">Trios</option>
+                            <option value="8">Otro</option>
+
+                        </select>
+                        <div class="musicData__type-other" v-show="isOther">
+                            <input class="input__dimensions" type="tel" id="musicData_type-other"
+                            v-model="musicData.other"
+                                name="musicData_type-other" placeholder="Escriba que musica interpreta" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="musicData__row">
+                    <button class="musicData__submit" @click="onSave">Quiero unirme</button>
+                </div>
+            </form>
+        </aside>
+    </main>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"> </script>
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="/__/firebase/6.1.1/firebase-app.js"></script>
+<script src="/__/firebase/6.1.1/firebase-database.js"></script>
+<!-- Initialize Firebase -->
+<script src="/__/firebase/init.js"></script>
+
+<script>
+    var database = firebase.database();
+    var app = new Vue({
+        el: '#app',
+        data: {
+            isOther: false,
+            musicData:{},
+        },
+        methods: {
+            onSave: function(){
+                console.log("inserting data")
+                firebase.database().ref('musics/'+ this.musicData.phone).set(this.musicData);
+            }
+        }
+    })
+
+</script>
+
+</html>
