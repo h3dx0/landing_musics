@@ -20,6 +20,9 @@
         </header>
         <aside>
             <form action="" class="musicData__form">
+                <div class="alert" v-show="successSaved">
+                    Gracias por registrarse. Pronto nos podendremos en contacto con usted.
+                </div>
                 <div class="musicData__row">
                     <div class="musicData__item">
                         <label for="musicData_label">Nombre</label>
@@ -89,10 +92,12 @@
         data: {
             isOther: false,
             musicData:{},
+            successSaved: false
         },
         methods: {
             onSave: function(){
                 firebase.database().ref('musics/'+ this.musicData.phone).set(this.musicData);
+                this.successSaved = true;
             }
         }
     })

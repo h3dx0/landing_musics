@@ -24,6 +24,12 @@ body{
     display: flex;
     justify-content: space-around;
 }
+.alert {
+    text-align: center;
+    font-size: 2em;    
+    padding: 15px;
+    border: solid;
+}
 .musicData__item {
     margin: 1em;
     width: 40%;
@@ -79,6 +85,4 @@ label{
         height: 3rem;
     }
   }
-  
-  
-  }
+ 
